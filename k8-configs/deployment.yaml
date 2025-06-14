@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: welcome-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: welcome-app
+  template:
+    metadata:
+      labels:
+        app: welcome-app
+    spec:
+      containers:
+        - name: welcome-app-container
+          image: namespaxe/html-app:1.0.1 #Example image from namespaxe registry
+          resources:
+            requests:
+              memory: "60Mi"
+              cpu: "10m"
+            limits:
+              memory: "70Mi"
+              cpu: "10m"
