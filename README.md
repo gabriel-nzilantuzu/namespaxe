@@ -6,11 +6,34 @@
 
 Validate all critical functionality of the Namespaxe multi-tenant Kubernetes platform using this test suite.
 
-## 🔐 1. Authentication Testing
+## 🔐 1. Account Creations & Authentication Testing
 
-### Test Case 1: Email Login
+![Step 1 - Sign up](./images/signup.png)
+
+### Test Case 1: Manually Account Creation
+
+**Objective:** Manually create an account and validate the process
+
+**Steps:**
+
+1. On sign-up page, Fill information required by the sign up form
+2. Click Sign up
+3. If action goes correct, your redirected to Account verification page to verify your account
+4. Enter OTP sent via you email to verify
+
+**Verification:**
+
+- [ ] Check username verification and error check
+- [ ] Check email verification and error check
+- [ ] Check strong password verification and error check
+
+---
+
+### Test Case 2: Email Login
 
 **Objective:** Verify email/password authentication
+
+![Step 2 - Sign in](./images/signin.png)
 
 **Steps:**
 
@@ -29,7 +52,7 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 ---
 
-### Test Case 2: GitHub OAuth
+### Test Case 3: GitHub OAuth
 
 **Objective:** Validate third-party authentication
 
@@ -49,7 +72,7 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 ---
 
-### Test Case 3: Google OAuth
+### Test Case 4: Google OAuth
 
 **Objective:** Validate third-party authentication
 
@@ -69,7 +92,7 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 ---
 
-### Test Case 4: Account Recovery
+### Test Case 5: Account Recovery
 
 **Objective:** Test password reset workflow
 
@@ -127,14 +150,18 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 - [ ] Click "Get New Plan" button in dashboard sidebar
 
+![Step 1 - Get new Plan](./images/new-plan.png)
+
 **Verification:**
 
-- [ ] Redirected to `/plans` page
+- [ ] Redirected to `/tenants/get-new-plan` page
 - [ ] All available plans are displayed
 
 ---
 
 ### 2. Select Plan Package
+
+![Step 2 - Available Plans](./images/plans.png)
 
 **Action:**
 
@@ -143,12 +170,12 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 **Alternative Test:**
 
-- [ ] Select paid plan (Pro/Enterprise) if testing payment gateway
+- [ ] Select paid plan (Standard/Premium)
 
 **Verification:**
 
 - [ ] Plan details expand showing features
-- [ ] "Continue" button becomes active
+- [ ] "Get started" button is active
 
 ---
 
@@ -159,6 +186,8 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 - [ ] Select billing cycle:
   - [ ] Monthly
   - [ ] Annual
+
+![Step 3 - Billing period](./images/period.png)
 
 **For Community Plan:**
 
@@ -177,6 +206,8 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 | Decline Test   | 4000 0000 0000 0002 | 12/34  | 123 |
 | Auth Required  | 4000 0025 0000 3155 | 12/34  | 123 |
 
+![Step 4 - Billing details](./images/billing-details.png)
+
 **Action:**
 
 - [ ] Fill billing information:
@@ -185,6 +216,8 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
   - Country: `[Select]`
 - [ ] Enter card details from test table
 - [ ] Check "Save payment method" checkbox
+
+![Step 4 - Card details](./images/card-details.png)
 
 **Verification:**
 
@@ -231,9 +264,11 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 **Steps:**
 
-- [ ] Log in to [Namespaxe Dashboard](https://namespaxe.com/dashboard)
+- [ ] Log in to [Namespaxe Dashboard](https://namespaxe.com)
 - [ ] Locate and click "Tenants" button in left navigation bar
 - [ ] Verify redirection to `/tenants` page
+
+![Step 1 - Billing details](./images/tenants.png)
 
 **Verification:**
 
@@ -268,6 +303,8 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
    - **Namespace Name:** (Test variations below)
    - **Cluster:** Select from available clusters
 3. Click "Submit"
+
+![Step 3 - Add namespace](./images/add-namespace.png)
 
 #### Test Matrix:
 
@@ -337,9 +374,9 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 - [ ] Click "+ Component" button in header
 - [ ] By default, editor is a creation method, Select creation other method if you like.
 - [ ] Example components
-- [ ] [Deployment.yaml](./Deployment.yaml)
-- [ ] [Service.yaml](./Service.yaml)
-- [ ] [Ingress.yaml](./Ingress.yaml)
+- [ ] [Deployment.yaml](./k8-configs/deployment.yaml)
+- [ ] [Service.yaml](./k8-configs/service.yaml)
+- [ ] [Ingress.yaml](./k8-configs/ingress.yaml)
 
 ### 2. Creation Methods
 
@@ -363,6 +400,8 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 2. Fill form fields (auto-validated)
 3. Click "Submit"
 ```
+
+![Step 2 - Add Component](./images/new-component.png)
 
 # Namespace Component Management Guide
 
