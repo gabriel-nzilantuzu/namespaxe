@@ -6,7 +6,7 @@
 
 Validate all critical functionality of the Namespaxe multi-tenant Kubernetes platform using this test suite.
 
-## 🔐 1. Authentication Testing([Authentication Test Guide](#-1-authentication-testing))
+## 🔐 1. Authentication Testing
 
 ### Test Case 1: Email Login
 
