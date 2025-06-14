@@ -22,9 +22,10 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 **Verification:**
 
-- [ ] Redirected to `https://namespaxe.com/dashboard`
-- [ ] Username appears in navigation bar
-- [ ] Session cookie contains `HttpOnly` and `Secure` flags
+- [ ] Redirected to `https://namespaxe.com`
+- [ ] Username appears in left-bottom of left navigation bar
+- [ ] Refresh cookie contains `HttpOnly` and `Secure` flags
+- [ ] Authentication is via stateless authenticaation.
 
 ---
 
@@ -34,7 +35,7 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 **Steps:**
 
-1. On sign-in page, click "Login with GitHub"
+1. On sign-in page, click "Signin with GitHub"
 2. Complete GitHub authentication:
    - Enter GitHub credentials
    - Complete 2FA if enabled
@@ -48,7 +49,27 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 
 ---
 
-### Test Case 3: Account Recovery
+### Test Case 3: Google OAuth
+
+**Objective:** Validate third-party authentication
+
+**Steps:**
+
+1. On sign-in page, click "Signin with Google"
+2. Complete Google authentication:
+   - Enter Google credentials
+   - Complete 2FA if enabled
+3. Click "Authorize"
+
+**Verification:**
+
+- [ ] Redirected to Namespaxe dashboard
+- [ ] GitHub account appears in Profile → Linked Accounts
+- [ ] New session visible in Security → Active Sessions
+
+---
+
+### Test Case 4: Account Recovery
 
 **Objective:** Test password reset workflow
 
@@ -82,8 +103,123 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 ## 🔒 Security Checks
 
 - [ ] All authentication endpoints use HTTPS
-- [ ] Session cookies have `SameSite=Lax` attribute
+- [ ] Session cookies have `SameSite=None` attribute
 - [ ] Password field masks input
+
+# Namespaxe Subscription Flow Test
+
+**Test Environment:** [https://namespaxe.com](https://namespaxe.com)
+
+## 🛒 Subscription Process Verification
+
+### Prerequisites
+
+- [ ] User is logged in ([Authentication Test Guide](#-1-authentication-testing))
+- [ ] Account has no active subscription
+
+---
+
+## 🔄 Subscriptions testing
+
+### 1. Initiate Subscription
+
+**Action:**
+
+- [ ] Click "Get New Plan" button in dashboard sidebar
+
+**Verification:**
+
+- [ ] Redirected to `/plans` page
+- [ ] All available plans are displayed
+
+---
+
+### 2. Select Plan Package
+
+**Action:**
+
+- [ ] Choose "Community Plan" (Free tier)
+  - _Note: This plan has lifetime free access_
+
+**Alternative Test:**
+
+- [ ] Select paid plan (Pro/Enterprise) if testing payment gateway
+
+**Verification:**
+
+- [ ] Plan details expand showing features
+- [ ] "Continue" button becomes active
+
+---
+
+### 3. Select Billing Period
+
+**For Paid Plans Only:**
+
+- [ ] Select billing cycle:
+  - [ ] Monthly
+  - [ ] Annual
+
+**For Community Plan:**
+
+- [ ] Verify "Lifetime Free" badge appears
+- [ ] No billing period selection shown
+
+---
+
+### 4. Enter Payment Details
+
+**Test Cards to Use:**
+
+| Card Type      | Number              | Expiry | CVC |
+| -------------- | ------------------- | ------ | --- |
+| Visa (Success) | 4242 4242 4242 4242 | 12/34  | 123 |
+| Decline Test   | 4000 0000 0000 0002 | 12/34  | 123 |
+| Auth Required  | 4000 0025 0000 3155 | 12/34  | 123 |
+
+**Action:**
+
+- [ ] Fill billing information:
+  - Full Name: `Test User`
+  - Address: `123 Test Street`
+  - Country: `[Select]`
+- [ ] Enter card details from test table
+- [ ] Check "Save payment method" checkbox
+
+**Verification:**
+
+- [ ] Card number formatting works (auto-spaces)
+- [ ] Expiry/CVC validation works
+
+---
+
+### 5. Complete Payment
+
+**Action:**
+
+- [ ] Click "Pay Now" button
+
+**Expected Results:**  
+✅ **Success Case:**
+
+- [ ] Green success notification appears
+- [ ] Redirected to dashboard
+- [ ] Account shows upgraded plan in settings
+
+❌ **Decline Case:**
+
+- [ ] Red error message shows decline reason
+- [ ] Card field gets highlighted
+
+---
+
+## 🧪 Additional Tests
+
+- [ ] Test 3D Secure flow (use card 4000 0025 0000 3155)
+- [ ] Other testing cards are available via: [https://docs.stripe.com/testing](https://docs.stripe.com/testing)
+- [ ] Verify receipt email delivery
+- [ ] Check subscription appears in Billing History
+- [ ] Test cancelation flow
 
   | Action           | Steps                                                                   | Expected Result                |
   | ---------------- | ----------------------------------------------------------------------- | ------------------------------ |
