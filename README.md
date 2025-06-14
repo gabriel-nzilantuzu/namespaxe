@@ -221,93 +221,242 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 - [ ] Check subscription appears in Billing History
 - [ ] Test cancelation flow
 
-  | Action           | Steps                                                                   | Expected Result                |
-  | ---------------- | ----------------------------------------------------------------------- | ------------------------------ |
-  | Create Namespace | 1. Go to `/tenants` → "New Namespace"<br>2. Select package<br>3. Submit | Green status in dashboard      |
-  | Delete Namespace | 1. Select namespace<br>2. Choose "Delete"<br>3. Confirm                 | Disappears from list           |
-  | Restore RBAC     | 1. Select compromised namespace<br>2. Click "Repair Permissions"        | All RBAC resources regenerated |
+# Namespaxe Tenant & Namespace Management Test
 
-1. Navigate to `/tenants/{subId}/{ns}/workloads`
-2. Click "New Pod"
-3. Select either:
-   - Template (pre-configured)
-   - Custom YAML
-4. Verify:
+**Prerequisite:** Successful subscription completion ([See Subscription Guide](#-subscription-process-verification))
 
-   - Status transitions to "Running"
-   - Logs are accessible
-   - Metrics appear
+## 🏢 Tenant Management Flow
 
-5. Create deployment via:
-   - [ ] UI Form
-   - [ ] YAML Upload
-6. Test:
-   - [ ] Scaling (adjust replicas)
-   - [ ] Rolling updates
-   - [ ] Rollback function
+### 1. Access Tenant Dashboard
 
-- [ ] **Service Creation**
+**Steps:**
 
-  - ClusterIP: `curl <service>.<namespace>.svc.cluster.local`
-  - NodePort: Verify external access on assigned port
+- [ ] Log in to [Namespaxe Dashboard](https://namespaxe.com/dashboard)
+- [ ] Locate and click "Tenants" button in left navigation bar
+- [ ] Verify redirection to `/tenants` page
 
-- [ ] **Ingress Validation**
-  1. Create ingress rule
-  2. Add DNS record
-  3. Test:
-     ```bash
-     curl -H "Host: your-app.namespaxe.com" http://<ingress-ip>
-     ```
+**Verification:**
 
-1. **RBAC Tests**
+- [ ] Default tenant appears (typically matches username)
+- [ ] "Manage Tenant" button is visible for each tenant
 
-   - [ ] Regular user cannot access admin actions
-   - [ ] Cross-namespace access denied
+---
 
-2. **Secret Handling**
+### 2. Manage Selected Tenant
 
-   - [ ] Create secret via UI
-   - [ ] Verify:
-     - Base64 encoding in API
-     - No plaintext in etcd
+**Steps:**
 
-3. **Audit Logs**
-   ```bash
-   kubectl logs -n namespaxe-system -l app=audit-trail
-   ```
+- [ ] Click "Manage Tenant" on your primary tenant
+- [ ] Verify URL changes to `/tenants/[tenant-id]`
 
-## 🐞 7. Reporting Issues
+**UI Checks:**
 
-### Bug Report Template:
+- [ ] Namespace list is visible (empty for new tenants)
+- [ ] "+ Namespace" button appears in top action bar
+- [ ] Cluster selector dropdown is present
+
+---
+
+## 🆕 Namespace Creation Test
+
+### 3. Create New Namespace
+
+**Steps:**
+
+1. Click "+ Namespace" button
+2. Complete popup form:
+   - **Namespace Name:** (Test variations below)
+   - **Cluster:** Select from available clusters
+3. Click "Submit"
+
+#### Test Matrix:
+
+| Test Case             | Input Example      | Expected Outcome          |
+| --------------------- | ------------------ | ------------------------- |
+| Valid name            | `dev-environment`  | Success creation          |
+| Starts with Uppercase | `S1-test`          | Error: Invalid format     |
+| Contains underscore   | `test_env`         | Error: Invalid format     |
+| Uppercase letters     | `PROD`             | Error: lowercase required |
+| Special chars         | `test@ns`          | Error: Invalid chars      |
+| Empty field           | (leave blank)      | Disabled submit button    |
+| Max length (63 chars) | `a...` (63 chars)  | Success creation          |
+| Over max length       | `a...` (64+ chars) | Error: Too long           |
+
+**Verification:**
+
+- [ ] Successful creation shows green toast notification
+- [ ] New namespace appears in list within 10 seconds
+
+## 🗑️ Namespace Deletion & Recovery
+
+### 4. Delete Namespace
+
+**Steps:**
+
+1. Locate target namespace in the list
+2. Click "🗑️" context menu
+3. Confirm deletion in dialog:
+   - [ ] Refer to "I understand this action is irreversible" (for immediate deletion)
+
+### 4. RBAC restoration
+
+**Steps:**
+
+1. Locate target namespace in the list
+2. Click "⚙️" context menu
+3. Confirm restoration in dialog:
+   - [ ] Refer to "I understand this action is irreversible" (for immediate restoration)
+
+# Namespace Component Management Guide
+
+**Prerequisite:** [Namespace Creation Completed](#-namespace-creation-test)
+
+## 🏗️ Accessing Namespace Management
+
+**Steps:**
+
+1. [Login](https://namespaxe.com/signin) to dashboard
+2. Navigate to:
+   - [ ] **Option A:** Click "Manage" button next to target namespace
+   - [ ] **Option B:** Click namespace name in the list
+3. Verify URL pattern: `/tenants/[tenant-id]/[namespace]`
+
+**UI Verification:**
+
+- [ ] Right navigation bar shows 7 tabs:
+- [ ] For small screens, current pointing left becomes active and when clicked it draws the right navigation bar:
+
+---
+
+## ✨ Component Creation Workflow
+
+### 1. Launch Component Creator
+
+**Steps:**
+
+- [ ] Click "+ Component" button in header
+- [ ] By default, editor is a creation method, Select creation other method if you like.
+- [ ] Example components
+- [ ] [Deployment.yaml](./Deployment.yaml)
+- [ ] [Service.yaml](./Service.yaml)
+- [ ] [Ingress.yaml](./Ingress.yaml)
+
+### 2. Creation Methods
+
+#### Method A: Editor
+
+1. Paste configuration (or use samples below)
+2. [ ] Verify no errors in parser
+3. Click "Submit"
+
+#### Method B: File upload
 
 ```markdown
-**Environment:**
-
-- Browser: [Chrome/Firefox/Safari]
-- Cluster: [AWS/GCP/Azure]
-
-**Steps to Reproduce:**
-
-1.
-2.
-3.
-
-**Expected Behavior:**
-
-**Actual Behavior:**
-
-**Screenshots:**
-[Upload via Ctrl+V]
-
-This README provides:
-
-1. Clear test instructions
-2. Code snippets for technical validations
-3. Structured reporting format
-4. Visual scheduling
-5. Multiple verification methods
+1. Click file uppload area to upload yaml or json file.
+2. Click "Submit"
 ```
 
+#### Method C: Form Wizard
+
+```markdown
+1. Select component type dropdown
+2. Fill form fields (auto-validated)
+3. Click "Submit"
 ```
 
+# Namespace Component Management Guide
+
+## 🛠️ Tab-Specific Operations
+
+### 1. Workloads Tab
+
+**Actions:**
+
+- **Deployments:**
+  - [ ] Scale replicas (up/down)
+  - [ ] Rollback revisions
+  - [ ] View pod templates
+- **StatefulSets:**
+  - [ ] Expand persistent volumes
+  - [ ] Execute pod management policy
+- **Pods:**
+  - [ ] View logs (streaming)
+  - [ ] Execute into container
+
+**Sample Workflow:**
+
+```markdown
+1. Create nginx deployment using sample YAML
+2. Scale to 3 replicas via "⋮" menu
+3. Verify pod distribution across nodes
+
+4. Create ClusterIP service
+5. Attach to deployment
+6. Verify internal DNS resolution
+
+---
+
+### 2. **Network Tab**
+
+**Actions:**
+
+- **Services:**
+
+  - [ ] Expose internal workloads via ClusterIP or NodePort
+  - [ ] Update port mappings
+
+- **Ingress:**
+  - [ ] Add routing rules
+  - [ ] Connect to a domain
+  - [ ] Enable TLS (use namespaxe-issuer)
+
+---
+
+### 3. **Storage Tab**
+
+**Actions:**
+
+- **PersistentVolumeClaims (PVCs):**
+  - [ ] Create PVCs (use namespaxe as storageClass)
+  - [ ] Bind to workloads
+  - [ ] Resize storage volumes
+
+---
+
+### 4. **Configuration Tab**
+
+**Actions:**
+
+- **Secrets:**
+
+  - [ ] Create encrypted secrets
+  - [ ] Mount into pods or use as environment variables
+
+- **ConfigMaps:**
+  - [ ] Store and update application configurations
+  - [ ] Use as volume or environment variable sources
+
+---
+
+### 5. **RBAC Tab**
+
+**Actions:**
+
+- **Roles:**
+
+  - [ ] Define granular access policies within the namespace
+
+- **RoleBindings:**
+  - [ ] Check if roles are binded to service account of user
+
+---
+
+### 6. **Events Tab**
+
+**Actions:**
+
+- [ ] Monitor real-time events related to the namespace
+- [ ] View error logs, warnings, and audit history for all components
+
+---
 ```
