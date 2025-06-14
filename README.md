@@ -1,32 +1,89 @@
 # Namespaxe Platform Testing Guide
 
+**Platform URL:** [https://namespaxe.com](https://namespaxe.com)
+
 ## 🚀 Getting Started
 
-This document outlines the step-by-step process for testing the Namespaxe multi-tenant Kubernetes platform. Follow these instructions to validate functionality across all key areas.
+Validate all critical functionality of the Namespaxe multi-tenant Kubernetes platform using this test suite.
 
 ## 🔐 1. Authentication Testing
 
-### Test Cases:
+### Test Case 1: Email Login
 
-````markdown
-- [ ] **Email Login**
+**Objective:** Verify email/password authentication
 
-  1. Navigate to `/signin`
-  2. Enter valid credentials
-  3. Verify successful redirect to dashboard
+**Steps:**
 
-- [ ] **GitHub OAuth**
+1. Navigate to [https://namespaxe.com/signin](https://namespaxe.com/signin)
+2. Enter valid credentials:
+   - Email: `your_test_user@company.com`
+   - Password: `[valid_password]`
+3. Click "Sign In"
 
-  1. Click "Login with GitHub"
-  2. Complete authorization
-  3. Verify session creation
+**Verification:**
 
-- [ ] **Account Recovery**
+- [ ] Redirected to `https://namespaxe.com/dashboard`
+- [ ] Username appears in navigation bar
+- [ ] Session cookie contains `HttpOnly` and `Secure` flags
 
-  1. Visit `/forgot-password`
-  2. Submit registered email
-  3. Check inbox for reset link
-  4. Verify password change
+---
+
+### Test Case 2: GitHub OAuth
+
+**Objective:** Validate third-party authentication
+
+**Steps:**
+
+1. On sign-in page, click "Login with GitHub"
+2. Complete GitHub authentication:
+   - Enter GitHub credentials
+   - Complete 2FA if enabled
+3. Click "Authorize"
+
+**Verification:**
+
+- [ ] Redirected to Namespaxe dashboard
+- [ ] GitHub account appears in Profile → Linked Accounts
+- [ ] New session visible in Security → Active Sessions
+
+---
+
+### Test Case 3: Account Recovery
+
+**Objective:** Test password reset workflow
+
+**Steps:**
+
+1. Visit [https://namespaxe.com/forgot-password](https://namespaxe.com/forgot-password)
+2. Submit registered email address
+3. Check inbox for "Password Reset Instructions" email
+4. Click reset link (valid 24h)
+5. Set new password:
+   - New Password: `[secure_password]`
+   - Confirm Password: `[secure_password]`
+
+**Verification:**
+
+- [ ] Confirmation toast message appears
+- [ ] Can login with new credentials
+- [ ] Old password rejects authentication
+
+---
+
+## 🔧 2. Edge Case Testing
+
+**Negative Tests:**
+
+- [ ] Attempt login with invalid email format
+- [ ] Submit wrong password (verify lockout after 5 attempts)
+- [ ] Click expired password reset link
+- [ ] Revoke GitHub OAuth access via GitHub settings
+
+## 🔒 Security Checks
+
+- [ ] All authentication endpoints use HTTPS
+- [ ] Session cookies have `SameSite=Lax` attribute
+- [ ] Password field masks input
 
   | Action           | Steps                                                                   | Expected Result                |
   | ---------------- | ----------------------------------------------------------------------- | ------------------------------ |
@@ -113,7 +170,8 @@ This README provides:
 3. Structured reporting format
 4. Visual scheduling
 5. Multiple verification methods
-
-Would you like me to add any specific test scenarios or modify the formatting for particular sections?
 ```
-````
+
+```
+
+```
