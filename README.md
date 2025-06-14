@@ -287,7 +287,7 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 - [ ] Successful creation shows green toast notification
 - [ ] New namespace appears in list within 10 seconds
 
-## 🗑️ Namespace Deletion & Recovery
+## Namespace Deletion & RBAC Restoration
 
 ### 4. Delete Namespace
 
@@ -383,17 +383,6 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
   - [ ] View logs (streaming)
   - [ ] Execute into container
 
-**Sample Workflow:**
-
-```markdown
-1. Create nginx deployment using sample YAML
-2. Scale to 3 replicas via "⋮" menu
-3. Verify pod distribution across nodes
-
-4. Create ClusterIP service
-5. Attach to deployment
-6. Verify internal DNS resolution
-
 ---
 
 ### 2. **Network Tab**
@@ -459,4 +448,3 @@ Validate all critical functionality of the Namespaxe multi-tenant Kubernetes pla
 - [ ] View error logs, warnings, and audit history for all components
 
 ---
-```
