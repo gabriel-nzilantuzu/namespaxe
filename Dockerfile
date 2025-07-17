@@ -1,13 +1,16 @@
 FROM nginx:alpine
 
-# Create the directory nginx needs and set permissions
+# Create required directory with correct permissions
 RUN mkdir -p /var/cache/nginx/client_temp && \
     chown -R 1000:1000 /var/cache/nginx
 
-USER 1000  # use non-root user with UID 1000
+# Set non-root user
+USER 1000
 
+# Copy site and custom config
 COPY . /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
