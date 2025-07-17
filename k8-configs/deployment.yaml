@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: welcome-app-container
-          image: namespaxe/html-app:3.0.6 #Example image from namespaxe registry
+          image: namespaxe/html-app:3.0.7 #Example image from namespaxe registry
           resources:
             requests:
               memory: "60Mi"
