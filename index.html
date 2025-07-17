@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -205,3 +208,22 @@
         }
     </style>
 </head>
+
+<body>
+    <h1>Welcome to Namespaxe</h1>
+    <p>Your one-stop platform for learning and deploying cloud projects with ease. Explore Kubernetes, containerization,
+        and much more.</p>
+    <button class="btn" onclick="triggerAnimation('https://namespaxe.com')">Get Started</button>
+    <div class="animation-overlay" id="animationOverlay"></div>
+    <script>
+        function triggerAnimation(url) {
+            const overlay = document.getElementById('animationOverlay');
+            overlay.classList.add('animate');
+            setTimeout(() => {
+                window.location.href = url;
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>
