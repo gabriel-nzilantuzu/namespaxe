@@ -1,89 +1,207 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Namespaxe</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Analytics / gtag -->
+    <script>
+        if (typeof window !== "undefined") {
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-S8NY0X1PDM");
+        }
+    </script>
+
+    <!-- Preload and Preconnect for Quill -->
+    <link rel="preload" href="https://cdn.quilljs.com/1.3.6/quill.snow.css" as="style" />
+    <link rel="preconnect" href="https://cdn.quilljs.com" />
+
+    <!-- Theme colors -->
+    <meta name="theme-color" content="#05070a" />
+    <meta name="theme-color" content="#05070a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <!-- SEO meta tags -->
+    <meta name="keywords"
+        content="namespaxe platform, namespaxe, cloud learning, Kubernetes tutorial, cloud deployment, cloud services platform, Kubernetes deployment, cloud computing, learning resources, Docker, cloud services for developers" />
+    <meta name="description"
+        content="Build, launch, and scale your apps faster with Namespaxe’s powerful cloud workspaces. Start deploying today!" />
+    <meta name="author" content="pyincorporation developers" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://namespaxe.com" />
+    <meta property="og:title" content="Namespaxe - Build, Launch, and Scale in Flexible Cloud Workspaces" />
+    <meta property="og:description"
+        content="Empowering businesses and individuals with advanced cloud services. Explore scalability, data security, and learning resources. Master the cloud with Namespaxe." />
+    <meta property="og:image" content="https://www.namespaxe.com/android-chrome-192x192.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="article:published_time" content="2024-03-30T12:00:00Z" />
+    <meta property="article:author" content="pyincorporation developers" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://namespaxe.com" />
+    <meta name="twitter:title" content="Namespaxe - Build, Launch, and Scale in Flexible Cloud Workspaces" />
+    <meta name="twitter:description"
+        content="Empowering businesses and individuals with advanced cloud services. Explore scalability, data security, and learning resources. Master the cloud with Namespaxe." />
+    <meta name="twitter:image" content="https://www.namespaxe.com/android-chrome-192x192.png" />
+    <meta name="twitter:site" content="@namespaxe" />
+    <meta name="twitter:creator" content="@namespaxe" />
+
+    <!-- Security headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+
+    <!-- Apple Web App -->
+    <meta name="apple-mobile-web-app-title" content="Namespaxe" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Namespaxe" />
+
+    <!-- Canonical & Robots -->
+    <link rel="canonical" href="https://namespaxe.com/" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://namespaxe.com/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://namespaxe.com/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://namespaxe.com/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="https://namespaxe.com/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="https://namespaxe.com/android-chrome-512x512.png" />
+    <link rel="manifest" href="https://namespaxe.com/site.webmanifest" />
+
+    <!-- Language and Geo -->
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="language" content="English" />
+    <link rel="alternate" hreflang="en" href="https://namespaxe.com/" />
+    <meta name="geo.region" content="TZ" />
+    <meta name="geo.placename" content="Arusha, Tanzania" />
+    <meta name="geo.position" content="-3.3725;36.6944" />
+    <meta name="ICBM" content="-3.3725, 36.6944" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="gOEhb5iVNAIwjThoJhAN03wAIkwO59CGjBMVWip9EwE" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "Namespaxe",
+          "url": "https://namespaxe.com",
+          "logo": "https://www.namespaxe.com/android-chrome-192x192.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+255 672 444 999",
+            "contactType": "customer service"
+          },
+          "sameAs": [
+            "https://twitter.com/namespaxe",
+            "https://www.linkedin.com/company/namespaxe",
+            "https://www.facebook.com/namespaxe"
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://namespaxe.com"
+            }
+          ]
+        },
+        {
+          "@type": "Service",
+          "name": "Cloud Computing Services",
+          "provider": {
+            "@type": "Organization",
+            "name": "Namespaxe"
+          },
+          "areaServed": "Global",
+          "serviceType": "Microservice Deployment, Cloud Computing, Learning Resources"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is Namespaxe?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Namespaxe is a cloud computing platform offering hands-on learning for Kubernetes and cloud deployment."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What services does Namespaxe offer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Namespaxe provides cloud computing services, Microservice deployment, and resources for developers to learn and scale their applications."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+
+    <!-- Custom Styles -->
     <style>
+        html,
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            height: 100%;
+            width: 100%;
+            background: #05070a !important;
+        }
+
+        .linier-bg {
+            margin: auto;
+            padding: 0;
             height: 100vh;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            overflow: hidden;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            text-align: center;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-
-        .btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            color: #2575fc;
-            background-color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #f1f1f1;
-        }
-
-        .animation-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 0;
-            height: 0;
-            background-color: white;
-            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(7, 0, 0, 0.027), rgb(0, 0, 0));
+            background-size: 200% 200%;
+            animation: gradientMove 8s infinite ease-in-out alternate;
+            position: fixed;
             z-index: 1000;
-            opacity: 0.9;
-            transition: width 0.5s ease-out, height 0.5s ease-out;
         }
 
-        .animate {
-            width: 300vw;
-            height: 300vh;
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            25% {
+                background-position: 100% 0%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            75% {
+                background-position: 0% 100%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
         }
     </style>
 </head>
-
-<body>
-    <h1>Welcome to Namespaxe</h1>
-    <p>Your one-stop platform for learning and deploying cloud projects with ease. Explore Kubernetes, containerization,
-        and much more.</p>
-    <button class="btn" onclick="triggerAnimation('https://namespaxe.com')">Get Started</button>
-    <div class="animation-overlay" id="animationOverlay"></div>
-    <script>
-        function triggerAnimation(url) {
-            const overlay = document.getElementById('animationOverlay');
-            overlay.classList.add('animate');
-            setTimeout(() => {
-                window.location.href = url;
-            }, 500);
-        }
-    </script>
-</body>
-
-</html>
