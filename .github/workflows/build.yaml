@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          tags: namespaxe/html-app:3.0.8
+          tags: namespaxe/uptime-kuma:1.0.0
           push: true
 
       - name: Logout from Docker Hub
